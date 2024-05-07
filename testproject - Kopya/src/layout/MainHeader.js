@@ -1,32 +1,53 @@
-import { NavItem } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-function MainHeader() {
+const Login = ({ setLoggedInUser }) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email1: '',
+    psw1: '',
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { email1, psw1 } = formData;
+    
+    // Kullanıcı adı ve şifre kontrolü
+    if (email1 === "ali@gmail.com" && psw1 === "123") {
+      navigate('/');
+      // Giriş yapıldığında kullanıcı e-postasını ayarla
+      setLoggedInUser(email1);
+    } else {
+      alert("Yanlış kullanıcı adı veya şifre");
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
-    <Navbar expand="md" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto flex-row"> {/* flex-row sınıfını ekleyerek menü öğelerini yatay olarak sırala */}
-            <NavItem className="me-3">
-              <Link to="/">Home</Link>
-            </NavItem>
-            <NavItem className="me-3">
-              <Link to="/login">Login</Link>
-            </NavItem>
-            <NavItem className="me-3">
-              <Link to="/Register">Register</Link>
-            </NavItem>
-            
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
-}
+    <Form style={{ marginTop: '20px' }} onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" name='email1' required onChange={handleChange} />
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group>
 
-export default MainHeader;
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" name='psw1' required onChange={handleChange} />
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};
+
+export default Login;

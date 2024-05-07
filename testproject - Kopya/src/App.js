@@ -1,30 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-import Login from './pages/auth/Login';
-import MaınLayout from './layout/MaınLayout';
-import Register from './pages/auth/Register';
-import Home from './pages/home/Home';
+import React, { useState } from 'react';
 import { Route, Routes } from "react-router-dom";
-
 import { Container } from 'react-bootstrap';
 import MainHeader from './layout/MainHeader';
+import Home from './pages/home/Home';
+import Register from './pages/auth/Register';
+import Login from './pages/auth/Login';
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
   return (
-    // <MaınLayout>
-    //   <Home/>
-
-    //   <Login/>
-    //   <Register/>
-    // </MaınLayout>
-
     <div>
       <Container>
-        <MainHeader></MainHeader>
+        <MainHeader loggedInUser={loggedInUser} />
          <Routes>
          <Route path="/" exact element={<Home/>}/>
          <Route path="/Register" exact element={<Register/>}/>
-         <Route path="/login" exact element={<Login/>}/>
+         <Route path="/login" exact element={<Login setLoggedInUser={setLoggedInUser} />} />
          </Routes>
       </Container>
       
