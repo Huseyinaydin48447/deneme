@@ -1,3 +1,4 @@
+import { NavItem } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,25 +7,21 @@ import { Link } from 'react-router-dom';
 
 function MainHeader() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="md" className="bg-body-tertiary">
       <Container>
-       
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="Register">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
+          <Nav className="me-auto flex-row"> {/* flex-row sınıfını ekleyerek menü öğelerini yatay olarak sırala */}
+            <NavItem className="me-3">
               <Link to="/">Home</Link>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+            </NavItem>
+            <NavItem className="me-3">
+              <Link to="/login">Login</Link>
+            </NavItem>
+            <NavItem className="me-3">
+              <Link to="/Register">Register</Link>
+            </NavItem>
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
