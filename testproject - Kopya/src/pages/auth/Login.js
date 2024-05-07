@@ -1,62 +1,55 @@
-import React from 'react'
-import { Card, Form, Button} from 'react-bootstrap'
-import MainHeader from '../../layout/MainHeader'
+import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-import { useState } from 'react';
 const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email1: '',
+    psw1: '',
+  });
 
-    const [formData, setFormData] = useState({
-        email1: '',
-        psw1: '',
-       
-      });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { email1, psw1 } = formData;
     
-      const handleSubmit = (event) => {
-        event.preventDefault();
-        // Form verilerini işleme al
-        const { email1, psw1 } = formData;
-        
-        console.log('Email:', email1);
-        console.log('Password:', psw1);
-      };
-    
-      const handleChange = (event) => {
-        const { name, value, } = event.target;
-        setFormData({ ...formData, [name]: value });
-      };
+    // Kullanıcı adı ve şifre kontrolü
+    if (email1 === "ali@gmail.com" && psw1 === "123") {
+      navigate('/');
+    } else {
+      alert("Yanlış kullanıcı adı veya şifre");
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
-
-    <>
-    <>
-    </>
-    <>
-     <Card body title='LOGIN' >
-        <h1>LOGIN</h1>
-         <Form  style={{marginTop:'20px'}}  onSubmit={handleSubmit}>
+    <Form style={{ marginTop: '20px' }} onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" name='email1'  required onChange={handleChange} />
+        <Form.Control type="email" placeholder="Enter email" name='email1' required onChange={handleChange} />
         <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
+        ali@gmail.com
         </Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" name='psw1'  required onChange={handleChange} />
+        
+        <Form.Control type="password" placeholder="Password" name='psw1' required onChange={handleChange} />
+     <Form.Text className="text-muted">
+        123
+        </Form.Text>
       </Form.Group>
-   
-      <Button variant="primary"  disabled={formData.email1!==""&& formData.psw1!=="" ? false : true} type="submit">
+
+      <Button variant="primary" type="submit">
         Submit
       </Button>
     </Form>
-    </Card>
-    </>
-   </>
-  )
+  );
+};
 
-}
-
-
-
-export default Login
+export default Login;
