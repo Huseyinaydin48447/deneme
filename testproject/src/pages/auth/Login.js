@@ -60,7 +60,7 @@ const Login = ({ setLoggedInUser }) => {
       </Button>
       <br></br>
       <Form.Text className="text-muted">
-        If you don't have an account, <Link to="/register"><b>sign up</b></Link>
+        If you don't have an account, <Link to="/Register"><b>sign up</b></Link>
       </Form.Text>
 
     </Form>
