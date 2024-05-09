@@ -6,37 +6,25 @@ import MainHeader from './layout/MainHeader';
 import Home from './pages/home/Home';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
-import { bos } from './pages/auth/bos';
+import { ProtectedRoute } from './ProtectedRoutej';
+import { Error404 } from './pages/error404/Error404';
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
 
-  useEffect(() => {
-    // localStorage'dan kullanıcı bilgilerini al
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData) {
-      setLoggedInUser(userData.email);
-    }
-  }, []);
 
   return (
     <div>
       <Container>
         <Routes>
-          {loggedInUser ? (
-            <>
-              <Route path="/" element={
-                  <React.Fragment>
-                    <MainHeader setLoggedInUser={setLoggedInUser} />
-                    <Home />
-                  </React.Fragment>
-                }
-              />
-            </>
-
-          ) : (<Route path="/" element={<Login setLoggedInUser={setLoggedInUser} />} />)}
+        
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} />} />
+          <Route path="/login" element={<Login  />} />
+          <Route  path='/'  element={<Navigate to="/home/todolist"/>} ></Route>
+          <Route  path='/home'  element={<ProtectedRoute/>} >
+          <Route path="todolist" element={<Home />} />
+
+          </Route>
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </Container>
     </div>

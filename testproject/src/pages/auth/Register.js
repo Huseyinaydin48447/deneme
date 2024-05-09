@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Form, Button } from 'react-bootstrap'
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import secureLocalStorage from 'react-secure-storage';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Register = () => {
     event.preventDefault();
     const { email, psw, psw2 } = formData;
 
-    localStorage.setItem('userData', JSON.stringify({ email, psw }));
+    secureLocalStorage.setItem('userData', JSON.stringify({ email, psw }));
     navigate('/login');
 
   };

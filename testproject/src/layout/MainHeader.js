@@ -6,22 +6,15 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { NavItem } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import secureLocalStorage from 'react-secure-storage';
 
 function MainHeader() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
   const navigate = useNavigate();
 
 
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData) {
-      setLoggedInUser(userData.email);
-    }
-  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('userData');
-    setLoggedInUser(null);
+    secureLocalStorage.removeItem('userData');
      navigate('/login');
   };
 
@@ -34,20 +27,20 @@ function MainHeader() {
             <NavItem className="me-3">
               <Link to="/">Home</Link>
             </NavItem>
-            {loggedInUser ? (
-              <NavDropdown title={loggedInUser} id="basic-nav-dropdown" className="me-3">
+           
+              <NavDropdown title={'title'} id="basic-nav-dropdown" className="me-3">
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
-            ) : (
-              <>
+       
+         
                 <NavItem className="me-3">
                   <Link to="/login">Login</Link>
                 </NavItem>
                 <NavItem className="me-3">
                   <Link to="/Register">Register</Link>
                 </NavItem>
-              </>
-            )}
+          
+     
           </Nav>
         </Navbar.Collapse>
       </Container>

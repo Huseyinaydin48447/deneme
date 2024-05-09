@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate , Link } from 'react-router-dom';
+import secureLocalStorage from 'react-secure-storage';
 
 const Login = ({ setLoggedInUser }) => {
   const navigate = useNavigate();
@@ -22,11 +23,9 @@ const Login = ({ setLoggedInUser }) => {
     // }
 
 
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(secureLocalStorage.getItem('userData'));
     if (userData && email1 === userData.email && psw1 === userData.psw) {
-         setLoggedInUser(email1);
-      navigate('/');
-      window.location.reload();
+      navigate('/home/todolist');
       
    
     } else {
