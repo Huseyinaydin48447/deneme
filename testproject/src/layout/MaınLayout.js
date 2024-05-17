@@ -8,7 +8,7 @@ const MaınLayout = ({children}) => {
     <><MainHeader />
     
     <Container  className='mt-4' >
-
+      {/* <Home></Home> */}
           {children}
       </Container></>
   )

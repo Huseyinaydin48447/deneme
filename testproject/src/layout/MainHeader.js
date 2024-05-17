@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,12 +10,12 @@ import secureLocalStorage from 'react-secure-storage';
 
 function MainHeader() {
   const navigate = useNavigate();
+  const userData = JSON.parse(secureLocalStorage.getItem('userData'));
 
-
-
+  console.log("title={userData.username}  : "  + userData.username)
   const handleLogout = () => {
     secureLocalStorage.removeItem('userData');
-     navigate('/login');
+    navigate('/login');
   };
 
   return (
@@ -25,22 +25,26 @@ function MainHeader() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto flex-row">
             <NavItem className="me-3">
-              <Link to="/">Home</Link>
+            <Link to="/home/todolist">Todolist</Link>
             </NavItem>
+            <NavItem className="me-3">
            
-              <NavDropdown title={'title'} id="basic-nav-dropdown" className="me-3">
+            </NavItem>
+            {userData && (
+              <NavDropdown title={userData.username} id="basic-nav-dropdown" className="me-3">
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
-       
-         
+            )}
+            {!userData && (
+              <>
                 <NavItem className="me-3">
                   <Link to="/login">Login</Link>
                 </NavItem>
                 <NavItem className="me-3">
-                  <Link to="/Register">Register</Link>
+                  <Link to="/register">Register</Link>
                 </NavItem>
-          
-     
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -49,3 +53,4 @@ function MainHeader() {
 }
 
 export default MainHeader;
+
